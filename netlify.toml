@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/api/justwatch"
+  to = "https://apis.justwatch.com/graphql"
+  status = 200
+  force = true

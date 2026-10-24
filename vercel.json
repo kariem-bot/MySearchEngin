@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/justwatch",
+      "destination": "https://apis.justwatch.com/graphql"
+    }
+  ]
+}

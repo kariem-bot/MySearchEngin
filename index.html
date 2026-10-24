@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamRadar</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Simple Minimal Header -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" id="brandHome" role="button" tabindex="0">
+        <span class="brand-dot"></span>
+        <span class="brand-name">StreamRadar</span>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="region-box">
+          <label for="countrySelect" id="countryLabel">Country:</label>
+          <select id="countrySelect" class="country-select">
+            <optgroup label="MENA">
+              <option value="EG" selected>🇪🇬 Egypt</option>
+              <option value="SA">🇸🇦 Saudi Arabia</option>
+              <option value="AE">🇦🇪 UAE</option>
+              <option value="KW">🇰🇼 Kuwait</option>
+              <option value="QA">🇶🇦 Qatar</option>
+              <option value="JO">🇯🇴 Jordan</option>
+              <option value="MA">🇲🇦 Morocco</option>
+              <option value="LB">🇱🇧 Lebanon</option>
+            </optgroup>
+            <optgroup label="International">
+              <option value="US">🇺🇸 USA</option>
+              <option value="GB">🇬🇧 UK</option>
+              <option value="CA">🇨🇦 Canada</option>
+              <option value="DE">🇩🇪 Germany</option>
+              <option value="FR">🇫🇷 France</option>
+              <option value="TR">🇹🇷 Turkey</option>
+              <option value="IN">🇮🇳 India</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <button type="button" id="langToggleBtn" class="lang-btn" title="Switch Language">
+          عربي
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Clean Search Section -->
+  <section class="search-section">
+    <div class="container">
+      <h1 id="mainHeading" class="main-heading">Where can I watch it?</h1>
+      <p id="subHeading" class="sub-heading">Search by series, movie, or actor to see which platform streams each season.</p>
+
+      <form id="searchForm" class="search-bar">
+        <div class="search-mode-tabs" id="searchModeTabs">
+          <button type="button" class="mode-tab active" data-mode="ALL" id="tabAll">All</button>
+          <button type="button" class="mode-tab" data-mode="TITLE" id="tabTitle">By Title</button>
+          <button type="button" class="mode-tab" data-mode="ACTOR" id="tabActor">By Actor</button>
+        </div>
+
+        <div class="search-input-group">
+          <input
+            type="text"
+            id="searchInput"
+            dir="auto"
+            placeholder="Search by series, movie, or actor..."
+            autocomplete="off"
+            required
+          />
+          <button type="button" id="clearSearchBtn" class="clear-btn hidden" title="Clear">&times;</button>
+          <button type="submit" id="searchBtn" class="search-btn">Search</button>
+        </div>
+      </form>
+
+      <!-- Minimal Quick Examples -->
+      <div class="quick-row" id="quickRow"></div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container main-area">
+    <!-- Loading Indicator -->
+    <div id="loadingState" class="loading-box hidden">
+      <div class="spinner"></div>
+      <span id="loadingMessage">Searching...</span>
+    </div>
+
+    <!-- Clean Detail View -->
+    <section id="detailView" class="detail-card hidden"></section>
+
+    <!-- Results List -->
+    <section id="resultsSection">
+      <div id="resultsHeader" class="results-header hidden">
+        <h2 id="resultsTitle">Results</h2>
+        <div class="type-filter" id="typeFilterBtns">
+          <button type="button" class="filter-pill active" data-type="ALL" id="filterAll">All</button>
+          <button type="button" class="filter-pill" data-type="SHOW" id="filterShow">Series</button>
+          <button type="button" class="filter-pill" data-type="MOVIE" id="filterMovie">Movies</button>
+        </div>
+      </div>
+
+      <div id="resultsGrid" class="results-grid"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
