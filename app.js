@@ -1,6 +1,7 @@
 /**
  * StreamRadar — Clean, Minimal Live Streaming Search Engine
- * Dedicated EN / AR language toggle (never mixes two languages on screen).
+ * Filtered STRICTLY by selected country.
+ * Dedicated EN / AR language toggle.
  * Supports searching in Arabic & English by Movie/Series Title OR by Actor Name.
  */
 
@@ -28,7 +29,7 @@ const I18N = {
     toggleBtn: 'عربي',
     countryLabel: 'Country:',
     mainHeading: 'Where can I watch it?',
-    subHeading: 'Search by series, movie, or actor to see which platform streams each season.',
+    subHeading: 'Shows only titles and seasons currently available in your selected country.',
     tabAll: 'All',
     tabTitle: 'By Title',
     tabActor: 'By Actor',
@@ -37,30 +38,29 @@ const I18N = {
     placeholderActor: 'Search by actor name (e.g. Cillian Murphy, Pedro Pascal)...',
     searchBtn: 'Search',
     searching: (q) => `Searching "${q}"...`,
-    loadingDetails: (t) => `Loading seasons & countries for "${t}"...`,
+    loadingDetails: (t) => `Loading seasons for "${t}"...`,
     filterAll: 'All',
     filterShow: 'Series',
     filterMovie: 'Movies',
-    resultsFor: (q, flag, cName, count) => `Results for "${q}" in ${flag} ${cName} (${count})`,
-    actorResultsFor: (q, flag, cName, count) => `Actor results for "${q}" in ${flag} ${cName} (${count})`,
-    noMatches: 'No matches found. Try searching another title or actor name.',
+    resultsFor: (q, flag, cName, count) => `Available in ${flag} ${cName} for "${q}" (${count})`,
+    actorResultsFor: (q, flag, cName, count) => `Available works with "${q}" in ${flag} ${cName} (${count})`,
+    noMatches: (cName) => `No streaming platforms currently available in ${cName} for this search.`,
     movieBadge: 'Movie',
     seriesBadge: 'Series',
-    notInCountryCard: (cName) => `Not in ${cName} · Click to check other countries`,
     closeBtn: 'Close ×',
-    chooseSeason: '1. Choose Season:',
+    chooseSeason: 'Choose Season:',
     allSeasons: (n) => `All Seasons (${n})`,
     seasonN: (n, y) => `Season ${n}${y ? ` (${y})` : ''}`,
     fullTitle: 'Full Title',
     whereToWatch: (scope, flag, cName) =>
-      `Where to watch <strong>${scope}</strong> in ${flag} <strong>${cName}</strong> (Click to open):`,
-    notAvailableLocal: (cName) => `Not available in ${cName} — see available countries below.`,
-    countriesStreaming: (scope, n) => `Countries streaming ${scope} (${n}):`,
-    noOffersFound: 'No streaming offers found for this selection.',
+      `Platforms streaming <strong>${scope}</strong> in ${flag} <strong>${cName}</strong> (Click to watch):`,
+    notAvailableLocal: (cName) => `Not currently available in ${cName}.`,
+    noOffersFound: 'Not currently streaming on any platform in this country.',
     stream: 'Stream',
     free: 'Free',
     rent: 'Rent',
     buy: 'Buy',
+    apiWarning: 'Local server not detected. For 100% accurate streaming availability, double-click start.bat to launch the local server.',
     chips: [
       { q: 'From', mode: 'TITLE', label: '🎬 From' },
       { q: 'House of the Dragon', mode: 'TITLE', label: '🎬 House of the Dragon' },
@@ -73,7 +73,7 @@ const I18N = {
     toggleBtn: 'EN',
     countryLabel: 'الدولة:',
     mainHeading: 'أين يمكنني مشاهدته؟',
-    subHeading: 'ابحث باسم المسلسل أو الفيلم أو الممثل لمعرفة المنصة العارضة لكل موسم.',
+    subHeading: 'يعرض فقط الأعمال والمواسم المتاحة حالياً في الدولة المحددة.',
     tabAll: 'الكل',
     tabTitle: 'باسم العمل',
     tabActor: 'باسم الممثل',
@@ -82,30 +82,29 @@ const I18N = {
     placeholderActor: 'ابحث باسم الممثل (مثل: يحيى الفخراني، عادل إمام)...',
     searchBtn: 'بحث',
     searching: (q) => `جاري البحث عن "${q}"...`,
-    loadingDetails: (t) => `جاري تحميل المواسم والدول لـ "${t}"...`,
+    loadingDetails: (t) => `جاري تحميل المواسم لـ "${t}"...`,
     filterAll: 'الكل',
     filterShow: 'مسلسلات',
     filterMovie: 'أفلام',
-    resultsFor: (q, flag, cName, count) => `نتائج البحث عن "${q}" في ${flag} ${cName} (${count})`,
-    actorResultsFor: (q, flag, cName, count) => `أعمال الممثل "${q}" في ${flag} ${cName} (${count})`,
-    noMatches: 'لا توجد نتائج مطابقة. جرب البحث باسم عمل أو ممثل آخر.',
+    resultsFor: (q, flag, cName, count) => `المتاح في ${flag} ${cName} لـ "${q}" (${count})`,
+    actorResultsFor: (q, flag, cName, count) => `أعمال الممثل "${q}" المتاحة في ${flag} ${cName} (${count})`,
+    noMatches: (cName) => `لا توجد منصات عارضة حالياً في ${cName} لهذا البحث.`,
     movieBadge: 'فيلم',
     seriesBadge: 'مسلسل',
-    notInCountryCard: (cName) => `غير متوفر في ${cName} · اضغط لمعرفة الدول المتاحة`,
     closeBtn: 'إغلاق ×',
-    chooseSeason: '١. اختر الموسم / الجزء:',
+    chooseSeason: 'اختر الموسم / الجزء:',
     allSeasons: (n) => `كل المواسم (${n})`,
     seasonN: (n, y) => `الجزء ${n}${y ? ` (${y})` : ''}`,
     fullTitle: 'العمل كامل',
     whereToWatch: (scope, flag, cName) =>
       `منصات عرض <strong>${scope}</strong> في ${flag} <strong>${cName}</strong> (اضغط للمشاهدة):`,
-    notAvailableLocal: (cName) => `غير متوفر حالياً في ${cName} — شاهد الدول المتاحة بالأسفل.`,
-    countriesStreaming: (scope, n) => `الدول المتاح بها ${scope} (${n}):`,
-    noOffersFound: 'لا توجد منصات رقمية مسجلة لهذا الاختيار.',
+    notAvailableLocal: (cName) => `غير متوفر حالياً في ${cName}.`,
+    noOffersFound: 'لا توجد منصات عارضة مسجلة لهذا العمل في هذه الدولة.',
     stream: 'متاح',
     free: 'مجاني',
     rent: 'إيجار',
     buy: 'شراء',
+    apiWarning: 'الخادم المحلي غير متصل. للحصول على نتائج دقيقة 100%، يرجى تشغيل ملف start.bat على جهازك.',
     chips: [
       { q: 'ليالي الحلمية', mode: 'TITLE', label: '🎬 ليالي الحلمية' },
       { q: 'جعفر العمدة', mode: 'TITLE', label: '🎬 جعفر العمدة' },
@@ -115,7 +114,6 @@ const I18N = {
   }
 };
 
-const COUNTRY_CODES = Object.keys(COUNTRIES);
 const ARABIC_REGEX = /[\u0600-\u06FF]/;
 
 const state = {
@@ -126,7 +124,8 @@ const state = {
   lastQuery: '',
   results: [],
   selectedItem: null,
-  selectedSeason: 'ALL'
+  selectedSeason: 'ALL',
+  apiAvailable: true
 };
 
 const els = {
@@ -192,7 +191,6 @@ function applyLanguageUI() {
   els.filterShow.textContent = dict.filterShow;
   els.filterMovie.textContent = dict.filterMovie;
 
-  // Update country select option labels to active language
   Array.from(els.countrySelect.options).forEach((opt) => {
     const c = COUNTRIES[opt.value];
     if (c) {
@@ -202,7 +200,6 @@ function applyLanguageUI() {
 
   setSearchMode(state.searchMode);
 
-  // Render language-appropriate quick chips
   els.quickRow.innerHTML = dict.chips
     .map(
       (c) =>
@@ -301,11 +298,16 @@ function setSearchMode(mode) {
 
 async function queryJustWatch(query, variables) {
   const payload = JSON.stringify({ query, variables });
-  const endpoints = [
-    '/api/justwatch',
-    'https://corsproxy.io/?https://apis.justwatch.com/graphql',
-    'https://apis.justwatch.com/graphql'
-  ];
+
+  const endpoints = ['/api/justwatch'];
+  if (
+    typeof window !== 'undefined' &&
+    (window.location.protocol === 'file:' ||
+      (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') ||
+      window.location.port !== '8080')
+  ) {
+    endpoints.push('http://localhost:8080/api/justwatch', 'http://127.0.0.1:8080/api/justwatch');
+  }
 
   for (const url of endpoints) {
     try {
@@ -316,10 +318,15 @@ async function queryJustWatch(query, variables) {
       });
       if (res.ok) {
         const json = await res.json();
-        if (json?.data) return json.data;
+        if (json?.data) {
+          state.apiAvailable = true;
+          return json.data;
+        }
       }
     } catch (_) {}
   }
+
+  state.apiAvailable = false;
   return null;
 }
 
@@ -331,15 +338,10 @@ async function runSearch(query) {
   setLoading(true, t().searching(query));
 
   try {
-    let [jwItems, arWikiItems] = await Promise.all([
+    const [jwItems, arWikiItems] = await Promise.all([
       fetchJustWatchTitles(query, state.country, isArabicQuery ? 'ar' : state.lang),
       isArabicQuery ? searchArabicMedia(query, state.searchMode) : Promise.resolve([])
     ]);
-
-    // If hosted on static GitHub Pages where /api/justwatch is not present, use live CORS-enabled APIs
-    if (jwItems.length === 0 && !isArabicQuery) {
-      jwItems = await searchStaticCloudFallback(query, state.searchMode);
-    }
 
     let combined = mergeArabicAndJustWatch(jwItems, arWikiItems, query);
 
@@ -356,7 +358,8 @@ async function runSearch(query) {
       }
     }
 
-    state.results = combined;
+    // STRICT COUNTRY FILTER: Only keep titles that actually have streaming offers in the selected country!
+    state.results = combined.filter((it) => it.offers && it.offers.length > 0);
     renderResults();
   } catch (err) {
     console.error(err);
@@ -368,7 +371,7 @@ async function runSearch(query) {
 async function fetchJustWatchTitles(searchQuery, country, lang = 'en') {
   const gql = `
     query SearchWithCast($q: String!, $c: Country!, $l: Language!) {
-      popularTitles(country: $c, filter: { searchQuery: $q }, first: 16) {
+      popularTitles(country: $c, filter: { searchQuery: $q }, first: 20) {
         edges {
           node {
             id
@@ -437,201 +440,9 @@ async function fetchJustWatchTitles(searchQuery, country, lang = 'en') {
       summary: c.shortDescription || '',
       poster,
       actors,
-      offers: deduped,
-      offersByCountry: {
-        [country]: deduped
-      }
+      offers: deduped
     };
   });
-}
-
-// 100% CORS-Free Static Cloud Fallback (for GitHub Pages when /api/justwatch is not running)
-async function searchStaticCloudFallback(query, mode) {
-  try {
-    const results = [];
-    const seen = new Set();
-
-    // 1. If Actor mode or All mode, check TVMaze People -> Cast Credits
-    if (mode === 'ACTOR' || mode === 'ALL') {
-      const pRes = await fetch(`https://api.tvmaze.com/search/people?q=${encodeURIComponent(query)}`);
-      if (pRes.ok) {
-        const people = await pRes.json();
-        const topPerson = people[0]?.person;
-        if (topPerson && topPerson.name.toLowerCase().includes(query.toLowerCase().trim())) {
-          const cRes = await fetch(`https://api.tvmaze.com/people/${topPerson.id}/castcredits?embed=show`);
-          if (cRes.ok) {
-            const credits = await cRes.json();
-            for (const cr of credits.slice(0, 12)) {
-              const show = cr._embedded?.show;
-              if (!show || seen.has(show.name)) continue;
-              seen.add(show.name);
-              results.push(mapTVMazeShowToItem(show, [{ name: topPerson.name, character: '' }]));
-            }
-          }
-        }
-      }
-    }
-
-    // 2. TVMaze Show Search
-    if (mode !== 'ACTOR' || results.length === 0) {
-      const sRes = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`);
-      if (sRes.ok) {
-        const shows = await sRes.json();
-        for (const entry of shows.slice(0, 10)) {
-          const show = entry.show;
-          if (!show || seen.has(show.name)) continue;
-          seen.add(show.name);
-          results.push(mapTVMazeShowToItem(show, []));
-        }
-      }
-    }
-
-    // 3. iTunes Movie Search (supports both Title and Actor name!)
-    const mRes = await fetch(
-      `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&media=movie&entity=movie&limit=6`
-    );
-    if (mRes.ok) {
-      const mData = await mRes.json();
-      for (const m of mData.results || []) {
-        if (!m.trackName || seen.has(m.trackName)) continue;
-        seen.add(m.trackName);
-        const year = m.releaseDate ? Number(m.releaseDate.slice(0, 4)) : '';
-        const offersByCountry = buildStaticOffersByCountry(m.trackName, 'MOVIE', '');
-        results.push({
-          id: `itunes-${m.trackId}`,
-          isJustWatch: false,
-          title: m.trackName,
-          type: 'MOVIE',
-          year,
-          imdb: null,
-          summary: m.longDescription || m.shortDescription || '',
-          poster: m.artworkUrl100 ? m.artworkUrl100.replace('100x100bb', '400x600bb') : null,
-          actors: m.artistName ? [{ name: m.artistName, character: '' }] : [],
-          offers: offersByCountry[state.country] || [],
-          offersByCountry
-        });
-      }
-    }
-
-    return results;
-  } catch (_) {
-    return [];
-  }
-}
-
-function mapTVMazeShowToItem(show, initialActors = []) {
-  const year = show.premiered ? Number(show.premiered.slice(0, 4)) : '';
-  const net = show.webChannel?.name || show.network?.name || '';
-  const offersByCountry = buildStaticOffersByCountry(show.name, 'SHOW', net);
-  return {
-    id: `tvm-${show.id}`,
-    tvmazeId: show.id,
-    isJustWatch: false,
-    networkName: net,
-    title: show.name,
-    type: 'SHOW',
-    year,
-    imdb: show.rating?.average ? Number(show.rating.average).toFixed(1) : null,
-    summary: (show.summary || '').replace(/<[^>]+>/g, ''),
-    poster: show.image?.medium || show.image?.original || null,
-    actors: initialActors,
-    offers: offersByCountry[state.country] || [],
-    offersByCountry
-  };
-}
-
-function buildStaticOffersByCountry(title, type, networkName) {
-  const q = encodeURIComponent(title);
-  const net = (networkName || '').toLowerCase();
-  const menaCodes = ['EG', 'SA', 'AE', 'KW', 'QA', 'JO', 'MA', 'LB'];
-
-  const P = {
-    osn: {
-      key: 'osn',
-      name: 'OSN+',
-      iconUrl: 'https://images.justwatch.com/icon/301451262/s100/osn.png',
-      monetizationType: 'FLATRATE',
-      presentationType: '_4K',
-      url: `https://osnplus.com/en-eg/search?q=${q}`
-    },
-    tod: {
-      key: 'tod',
-      name: 'TOD',
-      iconUrl: 'https://images.justwatch.com/icon/293968021/s100/tod.png',
-      monetizationType: 'FLATRATE',
-      presentationType: 'HD',
-      url: `https://www.tod.tv/en/search?q=${q}`
-    },
-    starz: {
-      key: 'starz',
-      name: 'STARZPLAY',
-      iconUrl: 'https://images.justwatch.com/icon/252221523/s100/starzplay.png',
-      monetizationType: 'FLATRATE',
-      presentationType: 'HD',
-      url: `https://starzplay.com/en/search?q=${q}`
-    },
-    netflix: {
-      key: 'netflix',
-      name: 'Netflix',
-      iconUrl: 'https://images.justwatch.com/icon/207360008/s100/netflix.png',
-      monetizationType: 'FLATRATE',
-      presentationType: '_4K',
-      url: `https://www.netflix.com/search?q=${q}`
-    },
-    prime: {
-      key: 'prime',
-      name: 'Prime Video',
-      iconUrl: 'https://images.justwatch.com/icon/340823436/s100/amazon.png',
-      monetizationType: 'FLATRATE',
-      presentationType: '_4K',
-      url: `https://www.primevideo.com/search/ref=atv_nb_sug?ie=UTF8&phrase=${q}`
-    },
-    disney: {
-      key: 'disney',
-      name: 'Disney+',
-      iconUrl: null,
-      monetizationType: 'FLATRATE',
-      presentationType: '_4K',
-      url: `https://www.google.com/search?q=${encodeURIComponent('site:disneyplus.com ' + title)}`
-    },
-    shahid: {
-      key: 'shahid',
-      name: 'Shahid',
-      iconUrl: 'https://images.justwatch.com/icon/242561400/s100/shahid.png',
-      monetizationType: 'FLATRATE',
-      presentationType: 'HD',
-      url: `https://shahid.mbc.net/en/widgets/search?q=${q}`
-    },
-    apple: {
-      key: 'apple',
-      name: 'Apple TV+',
-      iconUrl: 'https://images.justwatch.com/icon/338253243/s100/itunes.png',
-      monetizationType: 'FLATRATE',
-      presentationType: '_4K',
-      url: `https://tv.apple.com/search?term=${q}`
-    }
-  };
-
-  const byCountry = {};
-  for (const code of COUNTRY_CODES) {
-    const isMena = menaCodes.includes(code);
-    if (net.includes('hbo') || net.includes('max')) {
-      byCountry[code] = isMena ? [P.osn, P.tod] : [P.prime, P.apple];
-    } else if (net.includes('mgm') || net.includes('epix') || title.toLowerCase() === 'from') {
-      byCountry[code] = isMena ? [P.osn, P.starz, P.tod] : [P.netflix, P.prime];
-    } else if (net.includes('fx') || net.includes('hulu') || net.includes('disney')) {
-      byCountry[code] = [P.disney];
-    } else if (net.includes('apple')) {
-      byCountry[code] = [P.apple];
-    } else if (net.includes('prime') || net.includes('amazon')) {
-      byCountry[code] = [P.prime];
-    } else if (net.includes('paramount') || net.includes('showtime')) {
-      byCountry[code] = isMena ? [P.tod, P.osn, P.netflix] : [P.prime, P.netflix];
-    } else {
-      byCountry[code] = isMena ? [P.netflix, P.osn, P.tod, P.shahid] : [P.netflix, P.prime, P.apple];
-    }
-  }
-  return byCountry;
 }
 
 async function searchArabicMedia(query, mode) {
@@ -645,7 +456,7 @@ async function searchArabicMedia(query, mode) {
     const url =
       `https://ar.wikipedia.org/w/api.php?action=query&generator=search` +
       `&gsrsearch=${encodeURIComponent(searchExpr)}` +
-      `&gsrlimit=15&prop=pageimages|extracts|description` +
+      `&gsrlimit=12&prop=pageimages|extracts|description` +
       `&exintro=1&explaintext=1&exchars=320&piprop=thumbnail&pithumbsize=320&format=json&origin=*`;
 
     const res = await fetch(url);
@@ -692,11 +503,6 @@ async function searchArabicMedia(query, mode) {
       const arOffers = buildArabicPlatformOffers(baseTitle, year, isShow);
       const seasons = buildArabicSeriesSeasons(baseTitle, extract, year, arOffers);
 
-      const offersByCountry = {};
-      for (const code of ['EG', 'SA', 'AE', 'KW', 'QA', 'JO', 'MA', 'LB', 'US', 'GB']) {
-        offersByCountry[code] = arOffers;
-      }
-
       results.push({
         id: `ar-${p.pageid}`,
         isJustWatch: false,
@@ -708,14 +514,12 @@ async function searchArabicMedia(query, mode) {
         poster: p.thumbnail?.source || null,
         actors,
         offers: arOffers,
-        offersByCountry,
         seasons
       });
     }
 
     return results;
   } catch (e) {
-    console.error('Arabic search error:', e);
     return [];
   }
 }
@@ -834,7 +638,6 @@ function buildArabicSeriesSeasons(title, extract, startYear, defaultOffers) {
       { seasonNumber: 6, year: 2016, episodes: 30 }
     ];
     return parts.map((p) => {
-      const byCountry = {};
       const seasonOffers = defaultOffers.map((o) => ({
         ...o,
         url:
@@ -844,28 +647,21 @@ function buildArabicSeriesSeasons(title, extract, startYear, defaultOffers) {
               )}`
             : o.url
       }));
-      for (const c of ['EG', 'SA', 'AE', 'KW', 'QA', 'JO', 'MA', 'LB', 'US', 'GB']) {
-        byCountry[c] = seasonOffers;
-      }
       return {
         seasonNumber: p.seasonNumber,
         year: p.year,
         episodes: p.episodes,
-        offersByCountry: byCountry
+        offers: seasonOffers
       };
     });
   }
 
-  const byCountry = {};
-  for (const c of ['EG', 'SA', 'AE', 'KW', 'QA', 'JO', 'MA', 'LB', 'US', 'GB']) {
-    byCountry[c] = defaultOffers;
-  }
   return [
     {
       seasonNumber: 1,
       year: startYear || '',
       episodes: 30,
-      offersByCountry: byCountry
+      offers: defaultOffers
     }
   ];
 }
@@ -891,7 +687,6 @@ function mergeArabicAndJustWatch(jwItems, arWikiItems, query) {
           }
         }
         existing.offers = combinedOffers;
-        existing.offersByCountry[state.country] = combinedOffers;
       }
       if (jw.poster) existing.poster = jw.poster;
       if (jw.imdb) existing.imdb = jw.imdb;
@@ -974,10 +769,21 @@ function renderResults() {
       ? dict.actorResultsFor(state.lastQuery, cFlag, cName, list.length)
       : dict.resultsFor(state.lastQuery, cFlag, cName, list.length);
 
+  // If running on static GitHub Pages where /api/justwatch is 404, notify user gently
+  let warningHtml = '';
+  if (!state.apiAvailable && !ARABIC_REGEX.test(state.lastQuery)) {
+    warningHtml = `
+      <div style="grid-column:1/-1; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); border-radius:10px; padding:0.75rem 1rem; font-size:0.83rem; color:#fde68a; margin-bottom:0.75rem;">
+        ⚠️ ${escapeHtml(dict.apiWarning)}
+      </div>
+    `;
+  }
+
   if (list.length === 0) {
     els.resultsGrid.innerHTML = `
+      ${warningHtml}
       <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted);">
-        ${escapeHtml(dict.noMatches)}
+        ${escapeHtml(dict.noMatches(cName))}
       </div>
     `;
     return;
@@ -985,53 +791,53 @@ function renderResults() {
 
   const qLower = state.lastQuery.toLowerCase().trim();
 
-  els.resultsGrid.innerHTML = list
-    .map((item, idx) => {
-      const posterSrc =
-        item.poster ||
-        `https://placehold.co/160x240/1c2233/a5b4fc?text=${encodeURIComponent(item.title.slice(0, 14))}`;
+  els.resultsGrid.innerHTML = `
+    ${warningHtml}
+    ${list
+      .map((item, idx) => {
+        const posterSrc =
+          item.poster ||
+          `https://placehold.co/160x240/1c2233/a5b4fc?text=${encodeURIComponent(item.title.slice(0, 14))}`;
 
-      const matchedActor = item.actors.find((a) => a.name.toLowerCase().includes(qLower));
-      const topActors = item.actors.slice(0, 3);
-      if (matchedActor && !topActors.some((a) => a.name === matchedActor.name)) {
-        topActors.unshift(matchedActor);
-      }
+        const matchedActor = item.actors.find((a) => a.name.toLowerCase().includes(qLower));
+        const topActors = item.actors.slice(0, 3);
+        if (matchedActor && !topActors.some((a) => a.name === matchedActor.name)) {
+          topActors.unshift(matchedActor);
+        }
 
-      const sep = state.lang === 'ar' ? '، ' : ', ';
-      const castHtml =
-        topActors.length > 0
-          ? `🎭 ` +
-            topActors
-              .slice(0, 3)
-              .map(
-                (a) =>
-                  `<span class="actor-link" data-actor="${escapeHtml(a.name)}">${escapeHtml(a.name)}</span>`
-              )
-              .join(sep)
-          : '';
+        const sep = state.lang === 'ar' ? '، ' : ', ';
+        const castHtml =
+          topActors.length > 0
+            ? `🎭 ` +
+              topActors
+                .slice(0, 3)
+                .map(
+                  (a) =>
+                    `<span class="actor-link" data-actor="${escapeHtml(a.name)}">${escapeHtml(a.name)}</span>`
+                )
+                .join(sep)
+            : '';
 
-      const badgesHtml =
-        item.offers.length > 0
-          ? item.offers.slice(0, 4).map((o) => renderBadge(o, false)).join('')
-          : `<span style="font-size:0.75rem;color:var(--text-dim);">${escapeHtml(dict.notInCountryCard(cName))}</span>`;
+        const badgesHtml = item.offers.slice(0, 4).map((o) => renderBadge(o, false)).join('');
 
-      return `
-        <article class="card" data-idx="${idx}">
-          <img class="card-poster" src="${posterSrc}" alt="${escapeHtml(item.title)}" loading="lazy" />
-          <div class="card-body">
-            <div class="card-meta">
-              <span class="badge-type">${item.type === 'MOVIE' ? dict.movieBadge : dict.seriesBadge}</span>
-              ${item.year ? `<span>· ${item.year}</span>` : ''}
-              ${item.imdb ? `<span>· ★ ${item.imdb}</span>` : ''}
+        return `
+          <article class="card" data-idx="${idx}">
+            <img class="card-poster" src="${posterSrc}" alt="${escapeHtml(item.title)}" loading="lazy" />
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="badge-type">${item.type === 'MOVIE' ? dict.movieBadge : dict.seriesBadge}</span>
+                ${item.year ? `<span>· ${item.year}</span>` : ''}
+                ${item.imdb ? `<span>· ★ ${item.imdb}</span>` : ''}
+              </div>
+              <h3 class="card-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</h3>
+              <div class="card-cast">${castHtml}</div>
+              <div class="card-platforms">${badgesHtml}</div>
             </div>
-            <h3 class="card-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</h3>
-            <div class="card-cast">${castHtml}</div>
-            <div class="card-platforms">${badgesHtml}</div>
-          </div>
-        </article>
-      `;
-    })
-    .join('');
+          </article>
+        `;
+      })
+      .join('')}
+  `;
 
   els.resultsGrid.querySelectorAll('.card').forEach((card) => {
     card.addEventListener('click', (e) => {
@@ -1058,22 +864,16 @@ async function openDetail(item) {
   try {
     if (item.isJustWatch) {
       const isArabic = ARABIC_REGEX.test(item.title);
-      const countryAliases = COUNTRY_CODES.map(
-        (c) => `
-          ${c}: offers(country: ${c}, platform: WEB) {
-            monetizationType
-            presentationType
-            standardWebURL
-            package { clearName shortName icon }
-          }
-        `
-      ).join('\n');
-
       const gql = `
         query GetDetails($id: ID!, $c: Country!, $l: Language!) {
           node(id: $id) {
             ... on MovieOrShowOrSeason {
-              ${countryAliases}
+              offers(country: $c, platform: WEB) {
+                monetizationType
+                presentationType
+                standardWebURL
+                package { clearName shortName icon }
+              }
             }
             ... on Show {
               seasons {
@@ -1084,7 +884,12 @@ async function openDetail(item) {
                   seasonNumber
                   originalReleaseYear
                 }
-                ${countryAliases}
+                offers(country: $c, platform: WEB) {
+                  monetizationType
+                  presentationType
+                  standardWebURL
+                  package { clearName shortName icon }
+                }
               }
             }
           }
@@ -1098,48 +903,17 @@ async function openDetail(item) {
       });
 
       if (data?.node) {
-        item.offersByCountry = {};
-        for (const code of COUNTRY_CODES) {
-          item.offersByCountry[code] = dedupeOffers(data.node[code] || []);
-        }
+        item.offers = dedupeOffers(data.node.offers || []);
 
         if (Array.isArray(data.node.seasons) && data.node.seasons.length > 0) {
           item.seasons = data.node.seasons
-            .map((s) => {
-              const sNum = s.content?.seasonNumber || 1;
-              const byCountry = {};
-              for (const code of COUNTRY_CODES) {
-                byCountry[code] = dedupeOffers(s[code] || []);
-              }
-              return {
-                seasonNumber: sNum,
-                year: s.content?.originalReleaseYear || '',
-                episodes: s.totalEpisodeCount || 0,
-                offersByCountry: byCountry
-              };
-            })
+            .map((s) => ({
+              seasonNumber: s.content?.seasonNumber || 1,
+              year: s.content?.originalReleaseYear || '',
+              episodes: s.totalEpisodeCount || 0,
+              offers: dedupeOffers(s.offers || [])
+            }))
             .sort((a, b) => a.seasonNumber - b.seasonNumber);
-        }
-      }
-    } else if (item.tvmazeId) {
-      const res = await fetch(`https://api.tvmaze.com/shows/${item.tvmazeId}?embed[]=seasons&embed[]=cast`);
-      if (res.ok) {
-        const d = await res.json();
-        const castList = d._embedded?.cast || [];
-        if (castList.length > 0) {
-          item.actors = castList.slice(0, 8).map((c) => ({
-            name: c.person?.name || '',
-            character: c.character?.name || ''
-          })).filter((a) => a.name);
-        }
-        const rawSeasons = (d._embedded?.seasons || []).filter((s) => s.number > 0);
-        if (rawSeasons.length > 0) {
-          item.seasons = rawSeasons.map((s) => ({
-            seasonNumber: s.number,
-            year: s.premiereDate ? s.premiereDate.slice(0, 4) : '',
-            episodes: s.episodeOrder || 0,
-            offersByCountry: item.offersByCountry || {}
-          }));
         }
       }
     }
@@ -1168,11 +942,7 @@ function renderDetail(item) {
       ? item.seasons.find((s) => String(s.seasonNumber) === String(state.selectedSeason))
       : null;
 
-  const activeOffersByCountry = activeSeason
-    ? activeSeason.offersByCountry
-    : item.offersByCountry || {};
-
-  const localOffers = activeOffersByCountry[state.country] || [];
+  const localOffers = activeSeason ? (activeSeason.offers || []) : (item.offers || []);
 
   const castHtml =
     item.actors && item.actors.length > 0
@@ -1212,28 +982,6 @@ function renderDetail(item) {
     `;
   }
 
-  const availableCountries = COUNTRY_CODES.filter(
-    (code) => (activeOffersByCountry[code] || []).length > 0
-  );
-
-  const countryGridHtml =
-    availableCountries.length > 0
-      ? availableCountries
-          .map((code) => {
-            const ci = COUNTRIES[code];
-            const offs = activeOffersByCountry[code] || [];
-            return `
-              <div class="country-item ${code === state.country ? 'active-country' : ''}">
-                <div class="country-name">${ci.flag} ${escapeHtml(getCountryName(code))}</div>
-                <div class="card-platforms">
-                  ${offs.map((o) => renderBadge(o, true)).join('')}
-                </div>
-              </div>
-            `;
-          })
-          .join('')
-      : `<div style="color:var(--text-dim);font-size:0.84rem;">${escapeHtml(dict.noOffersFound)}</div>`;
-
   const scopeLabel = activeSeason
     ? dict.seasonN(activeSeason.seasonNumber, '')
     : dict.fullTitle;
@@ -1272,16 +1020,9 @@ function renderDetail(item) {
         ${
           localOffers.length > 0
             ? localOffers.map((o) => renderBadge(o, true)).join('')
-            : `<span style="color:#f59e0b;font-size:0.84rem;">${escapeHtml(dict.notAvailableLocal(cName))}</span>`
+            : `<span style="color:#f59e0b;font-size:0.84rem;">${escapeHtml(dict.noOffersFound)}</span>`
         }
       </div>
-    </div>
-
-    <div class="block-title">
-      ${escapeHtml(dict.countriesStreaming(scopeLabel, availableCountries.length))}
-    </div>
-    <div class="country-compact-grid">
-      ${countryGridHtml}
     </div>
   `;
 
